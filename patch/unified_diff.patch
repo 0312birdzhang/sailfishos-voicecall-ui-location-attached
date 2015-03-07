@@ -1,0 +1,31 @@
+--- /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml	2015-03-07 17:24:50.290835479 +0800
++++ /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml	2015-03-07 21:10:06.831352987 +0800
+@@ -1,6 +1,7 @@
+ import QtQuick 2.0
+ import Sailfish.Silica 1.0
+ import "../../common/CallLog.js" as CallLog
++import "phonelocation.js" as Location
+ 
+ SilicaFlickable {
+     id: incomingCallView
+@@ -208,11 +209,19 @@
+                 anchors.horizontalCenter: parent.horizontalCenter
+                 source: "image://theme/icon-l-redirect"
+             }
++	Label{
++		id:location
++		text:Location.getLocation(CallLog.formatNumber(phoneNumber))
++		font { family: Theme.fontFamilyHeading; pixelSize: Theme.fontSizeLarge }
++		maximumLineCount: 2
++                wrapMode: Text.Wrap
++		anchors.horizontalCenter: parent.horizontalCenter
++	}
+             Label {
+                 width: parent.width
+                 visible: text.length > 0
+                 horizontalAlignment: Text.AlignHCenter
+-                text: firstText.length > 0 || secondText.length > 0 ? firstText : CallLog.formatNumber(phoneNumber)
++                text: (firstText.length > 0 || secondText.length > 0 ? firstText : CallLog.formatNumber(phoneNumber))
+                 font { family: Theme.fontFamilyHeading; pixelSize: Theme.fontSizeHuge }
+                 elide: Text.ElideRight
+                 maximumLineCount: 2

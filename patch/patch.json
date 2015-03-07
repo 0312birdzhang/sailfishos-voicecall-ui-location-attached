@@ -1,0 +1,8 @@
+{
+    "name": "Call Location patch",
+    "description": "Show phone num Regin When you have a call,use local phone location db file",
+    "category": "phone",
+    "infos": {
+        "maintainer": "birdzhang"
+    }
+}
