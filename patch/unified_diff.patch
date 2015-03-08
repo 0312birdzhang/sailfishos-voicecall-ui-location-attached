@@ -1,14 +1,68 @@
---- /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml	2015-03-07 17:24:50.290835479 +0800
-+++ /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml	2015-03-07 21:10:06.831352987 +0800
-@@ -1,6 +1,7 @@
+--- /usr/share/voicecall-ui-jolla/pages/calllog/CallLogItem.qml	2015-03-08 14:43:18.926404289 +0800
++++ /usr/share/voicecall-ui-jolla/pages/calllog/CallLogItem.qml	2015-03-08 15:16:54.517186902 +0800
+@@ -4,6 +4,7 @@
+ import org.nemomobile.contacts 1.0
+ import Sailfish.Contacts 1.0
+ import "../../common/CallLog.js" as CallLog
++import "../../common/phonelocation.js" as Location
+ 
+ ListItem {
+     id: root
+@@ -68,20 +69,32 @@
+                           ? (!person || (person.primaryName.length === 0 && person.secondaryName.length === 0)
+                                  ? CallLog.formatNumber(remoteUid)
+                                  : person.primaryName)
+-                          : ""
++                          : "" + 
++			//Location.getLocation(CallLog.formatNumber(remoteUid))
++			"test"
+ 
+                 color: highlighted ? Theme.highlightColor : primaryColor
+                 truncationMode: TruncationMode.Fade
+                 width: Math.min(implicitWidth, parent.width)
+             }
+             Label {
++		id:secondNameText
+                 text: people.populated && person ? person.secondaryName : ""
+                 color: highlighted ? Theme.secondaryHighlightColor : secondaryColor
+                 truncationMode: TruncationMode.Fade
+                 width: Math.min(implicitWidth, parent.width - firstNameText.width)
+                 visible: width > 0
+             }
+-        }
++            Label {
++                id:location
++                text: Location.getLocation(CallLog.formatNumber(remoteUid))
++                color: highlighted ? Theme.secondaryHighlightColor : secondaryColor
++		font.pixelSize: Theme.fontSizeSmall*2/3
++                anchors.verticalCenter: parent.verticalCenter
++		width: Math.min(implicitWidth, parent.width - firstNameText.width -secondNameText.width)
++                visible: width > 0
++            }
++	 }
+         Label {
+             id: timeStampLabel
+             // JS comma operator used to ensure relative timestamp is updated whenever Qt.application.active changes
+--- /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml	2015-03-08 13:46:19.998158085 +0800
++++ /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml	2015-03-08 15:18:50.961441428 +0800
+@@ -1,7 +1,7 @@
  import QtQuick 2.0
  import Sailfish.Silica 1.0
  import "../../common/CallLog.js" as CallLog
-+import "phonelocation.js" as Location
- 
+-
++import "../../common/phonelocation.js" as Location
  SilicaFlickable {
      id: incomingCallView
-@@ -208,11 +209,19 @@
+ 
+@@ -54,7 +54,6 @@
+         }
+     }
+ 
+-
+     anchors.fill: parent
+     contentHeight: height
+     flickableDirection: Flickable.VerticalFlick
+@@ -208,11 +207,19 @@
                  anchors.horizontalCenter: parent.horizontalCenter
                  source: "image://theme/icon-l-redirect"
              }

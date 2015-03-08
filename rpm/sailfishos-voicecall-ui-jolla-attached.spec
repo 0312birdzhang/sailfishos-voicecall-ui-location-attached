@@ -10,7 +10,7 @@ BuildArch: armv7hl
 # << macros
 
 Summary:    Jolla Call Regin patch
-Version:    0.0.1
+Version:    0.0.2
 Release:    1
 Group:      Qt/Qt
 License:    TODO
@@ -18,7 +18,7 @@ Source0:    %{name}-%{version}.tar.bz2
 Requires:   patchmanager
 Requires:   voicecall-ui-jolla >= 0.8.6.1
 %description
-¿¥µÁπÈ Ùµÿ.
+Phone location for China,only support phone number now
 
 
 %prep
@@ -43,8 +43,8 @@ mkdir -p %{buildroot}/usr/share/patchmanager/patches/sailfishos-voicecall-ui-loc
 cp -r patch/* %{buildroot}/usr/share/patchmanager/patches/sailfishos-voicecall-ui-location-attached
 mkdir -p %{buildroot}/home/nemo/.local/share/JollaMobile/voicecall-ui/QML/OfflineStorage/Databases
 cp -r data/* %{buildroot}/home/nemo/.local/share/JollaMobile/voicecall-ui/QML/OfflineStorage/Databases
-mkdir -p %{buildroot}/usr/share/voicecall-ui-jolla/pages/calling
-cp voicecall-ui-jolla/*.js %{buildroot}/usr/share/voicecall-ui-jolla/pages/calling
+mkdir -p %{buildroot}/usr/share/voicecall-ui-jolla/common
+cp voicecall-ui-jolla/*.js %{buildroot}/usr/share/voicecall-ui-jolla/common
 # << install pre
 
 # >> install post
@@ -67,7 +67,7 @@ fi
 %files
 %defattr(-,root,root,-)
 %{_datadir}/patchmanager/patches/sailfishos-voicecall-ui-location-attached
-%{_datadir}/voicecall-ui-jolla/pages/calling
+%{_datadir}/voicecall-ui-jolla/common
 /home/nemo/.local/share/JollaMobile/voicecall-ui/QML/OfflineStorage/Databases
 # >> files
 # << files

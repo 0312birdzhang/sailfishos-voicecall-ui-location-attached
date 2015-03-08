@@ -1,6 +1,6 @@
 {
     "name": "Call Location patch",
-    "description": "Show phone num Regin When you have a call,use local phone location db file",
+    "description": "Phone location for China,only support phone number now",
     "category": "phone",
     "infos": {
         "maintainer": "birdzhang"
