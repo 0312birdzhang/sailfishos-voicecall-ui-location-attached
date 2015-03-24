@@ -1,41 +1,83 @@
 .pragma library
 .import QtQuick.LocalStorage 2.0 as SQL
-var regin;
-function getDatabase() {
-    return SQL.LocalStorage.openDatabaseSync("phone_location", "1.0", "phonelocation", 1024*1024*10);
 
+var region;
+
+function getDatabase() {
+    return SQL.LocalStorage.openDatabaseSync("phone_location", "1.0", "phonelocation", 1024*1024*7);
 }
+
+function getLocation(num) {
+    var result;
+    num = num.replace(/\+/g,"");
+    num = num.replace(/\(/g,"");
+    num = num.replace(/\)/g,"");
+    var reg = /^1[3458]\d{9}$/;
+    if(num.match(reg)){//phonenum
+        result = getAddress(num.substr(0,7));
+    }else{
+        var num_length = num.length;
+        switch(num_length){
+        case 4:
+            result ="模拟器";
+            break;
+        case 7:
+            result = "本地号码";
+            break;
+        case 8:
+            result = "本地号码";
+            break;
+        case 10://3位区号，7位号码
+            result = getAddress(num.substr(0,3));
+            break;
+        case 11://3位区号，8位号码  或4位区号，7位号码
+            result = getAddress(num.substr(0,3));
+            if(result === ""){
+                result = getAddress(num.substr(0,4));
+            }
+            break;
+        case 12:
+            result = getAddress(num.substr(0,4));
+            break;
+        default:
+            result = getAddress(num);
+            break;
+        }
+    }
+    if(result.length === 0){
+        result = "未知";
+    }
+    region = result;
+    return region;
+}
+
 function initialize() {
     var db = getDatabase();
     db.transaction(
                 function(tx) {
-                    tx.executeSql('CREATE TABLE IF NOT EXISTS phone_location(_id integer,aera TEXT);');
+                    tx.executeSql('CREATE TABLE IF NOT EXISTS phone_location(_id integer,area TEXT);');
 
                 });
 }
 
-function getLocation(num) {
+
+function getAddress(num) {
+
+    var address;
     try{
         initialize();
-        var phoneid
-        num = num.replace(/\+/g,"");
-        if(num.length>7){
-            phoneid = num.substr(0,7);
-        }else{
-        	phoneid=num;
-        }
         var db = getDatabase();
         db.transaction(function(tx) {
-            var rs = tx.executeSql('SELECT area FROM phone_location where _id = ?;',[phoneid]);
+           var rs = tx.executeSql('SELECT area FROM phone_location where _id = ?;',[num]);
           if (rs.rows.length > 0) {
-                regin=rs.rows.item(0).area
+                address = rs.rows.item(0).area
             } else {
-                regin="Unkown Location";
+                address = "未知";
                 }
         });
     }
     catch(e){
-        regin="Unkown";
+        address="未知";
     }
-        return regin;
+        return address;
 }

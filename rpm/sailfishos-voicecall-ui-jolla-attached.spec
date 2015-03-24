@@ -10,10 +10,10 @@ BuildArch: armv7hl
 # << macros
 
 Summary:    Jolla Call Regin patch
-Version:    0.0.2
+Version:    0.0.3
 Release:    1
 Group:      Qt/Qt
-License:    TODO
+License:    GPLV2
 Source0:    %{name}-%{version}.tar.bz2
 Requires:   patchmanager
 Requires:   voicecall-ui-jolla >= 0.8.6.1
