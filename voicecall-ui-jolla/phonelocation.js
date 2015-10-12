@@ -9,10 +9,11 @@ function getDatabase() {
 
 function getLocation(num) {
     var result;
+    num = num.replace(/\+86/g,"");
     num = num.replace(/\+/g,"");
     num = num.replace(/\(/g,"");
     num = num.replace(/\)/g,"");
-    var reg = /^1[3458]\d{9}$/;
+    var reg = /^1[34578]\d{9}$/;
     if(num.match(reg)){//phonenum
         result = getAddress(num.substr(0,7));
     }else{
@@ -28,10 +29,10 @@ function getLocation(num) {
             result = "本地号码";
             break;
         case 10://3位区号，7位号码
-            result = getAddress(num.substr(0,3));
+            result = getAddress(num.substr(1,4));
             break;
         case 11://3位区号，8位号码  或4位区号，7位号码
-            result = getAddress(num.substr(0,3));
+            result = getAddress(num.substr(1,4));
             if(result === ""){
                 result = getAddress(num.substr(0,4));
             }
