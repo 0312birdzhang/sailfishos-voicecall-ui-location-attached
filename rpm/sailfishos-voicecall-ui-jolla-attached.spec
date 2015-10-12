@@ -10,7 +10,7 @@ BuildArch: armv7hl
 # << macros
 
 Summary:    Jolla Call Regin patch
-Version:    0.0.4
+Version:    0.0.5
 Release:    1
 Group:      Qt/Qt
 License:    GPLV2
