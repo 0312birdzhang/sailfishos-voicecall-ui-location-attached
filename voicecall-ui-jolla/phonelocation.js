@@ -76,12 +76,12 @@ function getAddress(num) {
           if (rs.rows.length > 0) {
                 address = rs.rows.item(0).area
             } else {
-                address = "未知";
+                address = "";
                 }
         });
     }
     catch(e){
-        address="未知";
+        address="";
     }
         return address;
 }
