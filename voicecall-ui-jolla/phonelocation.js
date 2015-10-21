@@ -29,12 +29,15 @@ function getLocation(num) {
             result = "本地号码";
             break;
         case 10://3位区号，7位号码
-            result = getAddress(num.substr(1,4));
+            result = getAddress(num.substr(1,2));
             break;
         case 11://3位区号，8位号码  或4位区号，7位号码
             result = getAddress(num.substr(1,4));
             if(result === ""){
                 result = getAddress(num.substr(0,4));
+            }
+	    if(result === ""){
+                result = getAddress(num.substr(1,2));
             }
             break;
         case 12:
