@@ -11,14 +11,14 @@ BuildArch: armv7hl
 
 Summary:    Jolla Call Regin patch
 Version:    0.0.6
-Release:    1
+Release:    2
 Group:      Qt/Qt
 License:    GPLV2
 Source0:    %{name}-%{version}.tar.bz2
 Requires:   patchmanager
 Requires:   voicecall-ui-jolla >= 0.8.6.1
 %description
-Phone location for China,only support phone number now
+Phone location for China
 
 
 %prep

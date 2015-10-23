@@ -1,6 +1,6 @@
 {
     "name": "Call Location patch",
-    "description": "Phone location for China,only support phone number now",
+    "description": "Phone location for China,support phone number and fixed telephone number,you can donate me to make this patch better.",
     "category": "phone",
     "infos": {
         "maintainer": "birdzhang"
