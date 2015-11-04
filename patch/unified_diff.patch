@@ -1,6 +1,6 @@
 --- /usr/share/voicecall-ui-jolla/pages/calllog/CallLogItem.qml	2015-03-08 14:43:18.926404289 +0800
 +++ /usr/share/voicecall-ui-jolla/pages/calllog/CallLogItem.qml	2015-03-08 15:16:54.517186902 +0800
-@@ -4,6 +4,7 @@
+@@ -4,6 +4,7 @@ import org.nemomobile.commhistory 1.0
  import org.nemomobile.contacts 1.0
  import Sailfish.Contacts 1.0
  import "../../common/CallLog.js" as CallLog
@@ -8,14 +8,12 @@
  
  ListItem {
      id: root
-@@ -68,20 +69,32 @@
+@@ -68,20 +69,30 @@ ListItem {
                            ? (!person || (person.primaryName.length === 0 && person.secondaryName.length === 0)
                                   ? CallLog.formatNumber(remoteUid)
                                   : person.primaryName)
 -                          : ""
-+                          : "" + 
-+			//Location.getLocation(CallLog.formatNumber(remoteUid))
-+			""
++                          : "" 
  
                  color: highlighted ? Theme.highlightColor : primaryColor
                  truncationMode: TruncationMode.Fade
@@ -43,6 +41,28 @@
          Label {
              id: timeStampLabel
              // JS comma operator used to ensure relative timestamp is updated whenever Qt.application.active changes
+@@ -103,6 +114,21 @@ ListItem {
+         color: highlighted ? Theme.secondaryHighlightColor : secondaryColor
+     }
+ 
++    Label {//custom
++	id: phoneNumber
++        anchors {
++            top: description.bottom
++            left: description.left
++        }
++        font.pixelSize: Theme.fontSizeExtraSmall
++        text: people.populated || remoteUid !== undefined
++                          ? (!person || (person.primaryName.length === 0 && person.secondaryName.length === 0)
++                                 ? "" 
++				 : CallLog.formatNumber(remoteUid))
++                          : ""
++        color: highlighted ? Theme.secondaryHighlightColor : secondaryColor
++    }
++
+     Image {
+         id: icon
+         anchors.top: description.top
 --- /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml	2015-03-08 13:46:19.998158085 +0800
 +++ /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml	2015-03-08 15:18:50.961441428 +0800
 @@ -1,7 +1,7 @@
@@ -83,3 +103,15 @@
                  font { family: Theme.fontFamilyHeading; pixelSize: Theme.fontSizeHuge }
                  elide: Text.ElideRight
                  maximumLineCount: 2
+--- /usr/share/voicecall-ui-jolla/pages/CallLogPage.qml	2015-09-07 02:40:49.139654437 +0300
++++ /usr/share/voicecall-ui-jolla/pages/CallLogPage.qml	2015-09-22 00:13:59.236997067 +0300
+@@ -231,7 +231,7 @@
+                             width: Math.min(implicitWidth, wrapper.width - Theme.horizontalPageMargin*2 - timeIcon.width - durationLabel.width - 2*parent.spacing)
+                             anchors.verticalCenter: parent.verticalCenter
+                             truncationMode: TruncationMode.Fade
+-                            text: model.remoteUid
++                	     text: Format.formatDate(model.startTime)
+                         }
+                         Image {
+                             id: timeIcon
+

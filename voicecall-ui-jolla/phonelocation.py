@@ -10,7 +10,7 @@ import sqlite3
 import re
 
 def getaddress(num):
-    print "处理后的号码",num
+    print("处理后的号码",num)
     try:
         conn = sqlite3.connect("../data/6fbb8aa57ce8aa1ef7899348e99fac00.sqlite")
         cur = conn.cursor()
@@ -18,7 +18,7 @@ def getaddress(num):
         cur.execute('SELECT area FROM phone_location WHERE _id=?', t)
         return cur.fetchone()[0]
     except Exception,e:
-        print e
+        print(e)
         return ''
     conn.close()
 
@@ -27,7 +27,7 @@ def getLocation(num):
     num="".join(num.split("+86"))
     num="".join(num.split("("))
     num="".join(num.split(")"))
-    print "去掉特殊符号的号码：",num
+    print("去掉特殊符号的号码：",num)
     if re.search("^1[34578]\d{9}$",num):
         result = getaddress(num[0:7])
     else:
@@ -44,13 +44,19 @@ def getLocation(num):
             result = getaddress(num[1:4])
             if result == "":
                 result = getaddress(num[0:4])
+	    if result == "":
+                result = getaddress(num[0:4])
+            if result == "":
+                result = getaddress(num[1:2])
+	    if result == "":
+                result = getaddress(num[0:3])
         elif num_length == 12:
             result = getaddress(num[0:4])
         else:
             result = getaddress(num)
     if len(result) == 0:
         result = "未知"
-    print result
+    print(result)
     return result
 
 if __name__ == '__main__':
