@@ -1,0 +1,16 @@
+{
+    "translation_catalog": "sailfishos-voicecall-ui-location",
+    "entries": [
+        {
+            "path": "system_settings/look_and_feel/sailfishos-voicecall-ui-location",
+            "type": "page",
+            "title": "Chinese Phone Location",
+            "translation_id": "sailfishos-voicecall-ui-location",
+            "icon": "/usr/share/patchmanager/icons/icon-m-patchmanager-custom-operator-name.png",
+            "order": 9000,
+            "params": {
+                "source": "/usr/share/jolla-settings/pages/sailfishos-voicecall-ui-location/main.qml"
+            }
+        }
+    ]
+}

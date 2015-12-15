@@ -11,30 +11,30 @@ Page {
         interactive: contentHeight > height
 
         Column {
-	    id: content
+	           id: content
             width: parent.width
             spacing: Theme.paddingLarge
 
             PageHeader {
                 title: "来电归属地"
             }
-			
+
 	    Label {
                 width: parent.width
                 wrapMode: Text.Wrap
                 horizontalAlignment: Text.AlignHCenter
                 text: "Created by 0312birdzhang"
             }
-						
+
 	    Item {
 		    width: 1
                	    height: 70
-		}	
-			
+		}
+
 	    Label {
                 text: "Update Datas"
                 width: parent.width
-		wrapMode: Text.Wrap
+		            wrapMode: Text.Wrap
                 horizontalAlignment: Text.AlignHCenter
             }
 
@@ -45,7 +45,7 @@ Page {
                 onClicked: {
                 //
 		}
-            }		
+            }
         }
     }
 }
