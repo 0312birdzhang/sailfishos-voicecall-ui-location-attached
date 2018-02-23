@@ -6,7 +6,7 @@
 Name:       sailfishos-voicecall-ui-location-attached
 
 # >> macros
-# BuildArch: armv7hl
+BuildArch:  noarch
 # << macros
 
 Summary:    Jolla Call Regin patch
