@@ -2,7 +2,7 @@
     "translation_catalog": "sailfishos-voicecall-ui-location",
     "entries": [
         {
-            "path": "system_settings/look_and_feel/sailfishos-voicecall-ui-location",
+            "path": "system_settings/system/sailfishos-voicecall-ui-location",
             "type": "page",
             "title": "China Phone Location",
             "translation_id": "sailfishos-voicecall-ui-location",

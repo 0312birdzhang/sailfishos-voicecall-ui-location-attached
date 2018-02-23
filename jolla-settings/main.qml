@@ -32,18 +32,25 @@ Page {
                 title: "来电归属地"
             }
 
-	        Label {
-                width: parent.width
-                wrapMode: Text.Wrap
-                horizontalAlignment: Text.AlignHCenter
-                text: "Created by 0312birdzhang"
+            SectionHeader{
+                text: "关于"
             }
 
-	        Label {
-                text: "更新数据"
+            Label {
                 width: parent.width
-		        wrapMode: Text.Wrap
+                wrapMode: Text.WordWrap
+                font.pixelSize: Theme.fontSizeSmall
+                color: Theme.primaryColor
+                textFormat: Text.StyledText
+                linkColor:Theme.primaryColor
                 horizontalAlignment: Text.AlignHCenter
+                text: "本程序由0312birdzhang制作，\n"+
+                      "部分数据来自<a href=\"https://github.com/xluohome/phonedata\">https://github.com/xluohome/phonedata</a>,部分来自网络。\n"
+                     +"不保证数据的完全准确性,请知悉。"
+            }
+
+            SectionHeader {
+                text: "更新数据"
             }
 
             Button {
@@ -52,7 +59,7 @@ Page {
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                     notification.show("暂未实现，敬请期待！")
-		        }
+                }
             }
         }
     }
