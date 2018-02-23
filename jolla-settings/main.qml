@@ -1,6 +1,7 @@
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import org.nemomobile.configuration 1.0
+import Nemo.Configuration 1.0
+
 
 Page {
     id: page
@@ -8,43 +9,34 @@ Page {
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: content.height
-        interactive: contentHeight > height
-
         Column {
-	           id: content
+            id: content
             width: parent.width
             spacing: Theme.paddingLarge
-
             PageHeader {
                 title: "来电归属地"
             }
 
-	    Label {
+	        Label {
                 width: parent.width
                 wrapMode: Text.Wrap
                 horizontalAlignment: Text.AlignHCenter
                 text: "Created by 0312birdzhang"
             }
 
-	    Item {
-		    width: 1
-               	    height: 70
-		}
-
-	    Label {
-                text: "Update Datas"
+	        Label {
+                text: "更新数据"
                 width: parent.width
-		            wrapMode: Text.Wrap
+		        wrapMode: Text.Wrap
                 horizontalAlignment: Text.AlignHCenter
             }
 
             Button {
-                text: "更新数据"
-                width: 200
+                text: "更新"
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
                 //
-		}
+		        }
             }
         }
     }

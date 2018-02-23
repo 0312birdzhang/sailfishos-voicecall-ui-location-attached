@@ -4,9 +4,9 @@
         {
             "path": "system_settings/look_and_feel/sailfishos-voicecall-ui-location",
             "type": "page",
-            "title": "Chinese Phone Location",
+            "title": "China Phone Location",
             "translation_id": "sailfishos-voicecall-ui-location",
-            "icon": "/usr/share/patchmanager/icons/icon-m-patchmanager-custom-operator-name.png",
+            "icon": "image://theme/icon-m-phone",
             "order": 9000,
             "params": {
                 "source": "/usr/share/jolla-settings/pages/sailfishos-voicecall-ui-location/main.qml"
