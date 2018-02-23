@@ -7,6 +7,8 @@ import Nemo.Notifications 1.0
 Page {
     id: page
 
+    property bool running: false
+
     Notification{
         id: notification
         function show(message, icn) {
@@ -18,6 +20,7 @@ Page {
         }
         expireTimeout: 3000
     }
+
     SilicaFlickable {
         anchors.fill: parent
         contentHeight: content.height
@@ -45,9 +48,10 @@ Page {
 
             Button {
                 text: "更新"
+                enabled: !running
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-                    notification.show("暂未实现")
+                    notification.show("暂未实现，敬请期待！")
 		        }
             }
         }
