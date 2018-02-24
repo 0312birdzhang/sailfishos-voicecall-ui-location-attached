@@ -9,7 +9,7 @@ XDG_DOWNLOAD_DIR = os.environ.get("XDG_DOWNLOAD_DIR", HOME)
 XDG_DATA_HOME = os.environ.get("XDG_DATA_HOME", os.path.join(HOME, ".local", "share"))
 dbPath = os.path.join(XDG_DATA_HOME, "JollaMobile", "voicecall-ui", "QML", "OfflineStorage", "Databases","")
 
-__domain__ = "http://phone.birdzhang.xyz"
+__domain__ = "https://phone.birdzhang.xyz"
 
 def getVersion():
     url = "%s/getversion" % (__domain__, )
