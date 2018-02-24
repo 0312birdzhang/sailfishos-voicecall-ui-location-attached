@@ -1,6 +1,0 @@
-<services>
-   <service name="webhook">
-     <param name="repourl">https://github.com/0312birdzhang/sailfishos-voicecall-ui-location-attached.git</param>
-     <param name="branch">master</param>
-   </service>
-</services>
