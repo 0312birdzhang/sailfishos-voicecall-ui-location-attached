@@ -17,6 +17,7 @@ License:    GPLV2
 Source0:    %{name}-%{version}.tar.bz2
 Requires:   patchmanager
 Requires:   voicecall-ui-jolla >= 0.8.6.1
+Requires:   pyotherside-qml-plugin-python3-qt5 >= 1.4.0
 %description
 Phone location for China
 

@@ -10,7 +10,7 @@ import sys
 # import codecs
 from phone import Phone
 
-patch_sqlfile = "G:\\code\\sailfishos-voicecall-ui-location-attached\\data\\6fbb8aa57ce8aa1ef7899348e99fac00.sqlite1"
+patch_sqlfile = "G:\\code\\sailfishos-voicecall-ui-location-attached\\data\\6fbb8aa57ce8aa1ef7899348e99fac00.sqlite"
 # csv_file = "G:\\code\\sailfishos-voicecall-ui-location-attached\\Mobile.csv"
 
 patch_map = {}
@@ -38,7 +38,9 @@ for i in all_phones:
 
 # print(len(not_contain_map))
 for k,v in not_contain_map.items():
-    print(k,str(v))
-    c.execute("INSERT INTO phone_location values ('%s','%s')"  % (k,str(v)))
+    print("%s,%s" % (k,str(v) ))
+    #c.execute("INSERT INTO phone_location values ('%s','%s')"  % (k,str(v)))
 conn.commit()
 conn.close()
+
+# 将输入的数据保存为下次更新的版本
