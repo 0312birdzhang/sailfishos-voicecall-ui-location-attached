@@ -78,6 +78,6 @@ fi
 %{_datadir}/voicecall-ui-jolla/common
 %{_datadir}/jolla-settings/entries
 %{_datadir}/jolla-settings/pages
-attr(0644, nemo, nemo) /home/nemo/.local/share/JollaMobile/voicecall-ui/QML/OfflineStorage/Databases
+%attr(0644, nemo, nemo) /home/nemo/.local/share/JollaMobile/voicecall-ui/QML/OfflineStorage/Databases
 # >> files
 # << files
