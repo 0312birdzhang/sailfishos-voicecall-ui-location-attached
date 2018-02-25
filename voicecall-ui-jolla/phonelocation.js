@@ -13,7 +13,7 @@ function getLocation(num) {
     num = num.replace(/\+/g,"");
     num = num.replace(/\(/g,"");
     num = num.replace(/\)/g,"");
-    var reg = /^1[34578]\d{9}$/;
+    var reg = /^1[345789]\d{9}$/;
     if(num.match(reg)){//phonenum
         result = getAddress(num.substr(0,7));
     }else{
