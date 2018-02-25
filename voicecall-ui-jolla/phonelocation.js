@@ -39,7 +39,7 @@ function getLocation(num) {
             if(result === ""){
                 result = getAddress(num.substr(0,4));
             }
-	    if(result === ""){
+	        if(result === ""){
                 result = getAddress(num.substr(1,2));
             }
             if(result === ""){

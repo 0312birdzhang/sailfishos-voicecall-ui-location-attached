@@ -35,26 +35,29 @@ Page {
 
         Component.onCompleted: {
             setHandler('updated', updated);
-            addImportPath('.');
+            addImportPath(Qt.resolvedUrl('.'));
             py.importModule('main', function () {
 
             })
         }
 
         function checkVersion(){
-            py.call_sync("main.getVersion",[],function(ret){
-                if ( ret == 20180131){
-                    notification.show("检查版本出错");
-                    running = false;
-                    return false;
-                }
-                if ( ret > config.version){
-                    tmpversion = ret;
-                    return true;
-                }else{
-                    return false;
-                }
-            })
+            var newversion = py.call_sync("main.getVersion",[],function(ret){
+                });
+            
+            console.log("checked version", newversion);
+            console.log("stored version",config.version);
+            if ( newversion == 20180131){
+                notification.show("检查版本出错");
+                running = false;
+                return false;
+            }
+            if ( newversion > config.version){
+                tmpversion = newversion;
+                return true;
+            }else{
+                return false;
+            }
         }
 
         function updateDB(version){
@@ -64,12 +67,10 @@ Page {
         onUpdated:{
             if(flag){
                 config.version = tmpversion;
-                flickable.children[0].children[4].text = "更新";
                 notification.show("更新成功")
                 running = false;
             }else{
                 notification.show("发生了错误");
-                flickable.children[0].children[4].text = "更新";
                 running = false;
             }
             
@@ -78,7 +79,6 @@ Page {
         onError: {
             console.log('Error: ' + traceback)
             notification.show("发生了错误");
-            flickable.children[0].children[4].text = "更新";
             running = false;
         }
     }
@@ -107,9 +107,9 @@ Page {
                 textFormat: Text.StyledText
                 linkColor:Theme.primaryColor
                 horizontalAlignment: Text.AlignHCenter
-                text: "本程序由0312birdzhang制作，\n"+
-                      "部分数据来自<a href=\"https://github.com/xluohome/phonedata\">https://github.com/xluohome/phonedata</a>,部分来自网络。\n"
-                     + "不保证数据的完全准确性,请知悉。\n\n"
+                text: "本程序由0312birdzhang制作，"+
+                      "部分数据来自<a href=\"https://github.com/xluohome/phonedata\">https://github.com/xluohome/phonedata</a>,部分来自网络。<br/>"
+                     + "不保证数据的完全准确性,请知悉。<br/>"
                      + "当前数据库版本：" + config.version;
                 onLinkActivated: {
                     Qt.openUrlExternally(link);
@@ -121,16 +121,16 @@ Page {
             }
 
             Button {
-                text: "更新"
+                text: running? "更新中..." :"更新"
                 enabled: !running
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
+                    running = true;
                     if(py.checkVersion()){
-                        running = true;
-                        py.updateDB(tmpversion);
-                        text = "更新中..."
                         notification.show("正在更新，请勿关闭页面");
+                        py.updateDB(tmpversion);
                     }else{
+                        running = false;
                         notification.show("已是最新版本，无需更新")
                     }
                 }

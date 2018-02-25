@@ -1,12 +1,12 @@
 import os
-import urllib
+import urllib.request
 import sqlite3
 import pyotherside
 import codecs
 import re
 
 HOME = os.path.expanduser("~")
-XDG_DOWNLOAD_DIR = os.environ.get("XDG_DOWNLOAD_DIR", HOME)
+XDG_DOWNLOAD_DIR = os.environ.get("XDG_DOWNLOAD_DIR", os.path.join(HOME, "Downloads"))
 XDG_DATA_HOME = os.environ.get("XDG_DATA_HOME", os.path.join(HOME, ".local", "share"))
 dbPath = os.path.join(XDG_DATA_HOME, "JollaMobile", "voicecall-ui", "QML", "OfflineStorage", "Databases","")
 
@@ -18,7 +18,7 @@ def getVersion():
 
 def updateDB(version):
     downname = "%s/%s.data" % (XDG_DOWNLOAD_DIR, version)
-    downurl = "%s/%s" % (__domain__, version)
+    downurl = "%s/%s.data" % (__domain__, version)
     if download(downname, downurl):
         updateSql(downname, getDbname())
     else:
@@ -39,14 +39,18 @@ def get(url):
         return int(version)
     except Exception as e:
         #my daughter's birthday
+        print(e)
         return 20180131
 
 def download(downname,downurl):
+    print(downname,downurl)
     try:
         urllib.request.urlretrieve(downurl,downname)
-    except urllib.error.HTTPError:
+    except urllib.error.HTTPError as e:
+        print(e)
         return False
-    except urllib.error.ContentTooShortError:
+    except urllib.error.ContentTooShortError as e:
+        print(e)
         return False
     return True
 
@@ -58,12 +62,14 @@ def getDbname():
     return "%s%s.sqlite" % (dbPath, dbname)
 
 def updateSql(newdb, olddb):
+    print(olddb)
     conn = sqlite3.connect(olddb)
     c = conn.cursor()
     with codecs.open(newdb, 'r+', encoding='utf-8') as f:
         for i in f.readlines():
             row = i.split(",")
-            c.execute("INSERT OR REPLACE INTO phone_location values ('%s','%s')"  % (row[0], row[1]))
+            print(row[0])
+            c.execute("INSERT OR REPLACE INTO phone_location values (?,?);", (row[0], row[1]))
     conn.commit()
     conn.close()
 
@@ -77,7 +83,7 @@ def getaddress(num):
         t = (num,)
         cur.execute('SELECT area FROM phone_location WHERE _id=?', t)
         return cur.fetchone()[0]
-    except Exception,e:
+    except Exception as e:
         # print(e)
         return ""
     finally:
@@ -86,9 +92,9 @@ def getaddress(num):
 def getLocation(num):
     result=""
     num="".join(num.split("+86"))
+    num="".join(num.split("+"))
     num="".join(num.split("("))
     num="".join(num.split(")"))
-    # print("去掉特殊符号的号码：",num)
     if re.search("^1[345789]\d{9}$",num):
         result = getaddress(num[0:7])
     else:
@@ -103,15 +109,13 @@ def getLocation(num):
             result = getaddress(num[1:4])
         elif num_length == 11:#3位区号，8位号码  或4位区号，7位号码
             result = getaddress(num[1:4])
-            if result == "":
+            if len(result) == 0:
                 result = getaddress(num[0:4])
-	    if result == "":
-                result = getaddress(num[0:4])
-            if result == "":
+            if len(result) == 0:
                 result = getaddress(num[1:2])
-	    if result == "":
+            if len(result) == 0:
                 result = getaddress(num[0:3])
-        elif num_length == 12:
+        elif  num_length == 12:
             result = getaddress(num[0:4])
         else:
             result = getaddress(num)
