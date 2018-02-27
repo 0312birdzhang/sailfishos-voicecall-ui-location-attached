@@ -11,7 +11,7 @@ BuildArch:  noarch
 
 Summary:    Jolla Call Regin patch
 Version:    0.1.0
-Release:    1
+Release:    2
 Group:      Qt/Qt
 License:    GPLV2
 Source0:    %{name}-%{version}.tar.bz2
@@ -63,6 +63,7 @@ cp -r jolla-settings/*.json %{buildroot}/usr/share/jolla-settings/entries/
 if [ -f /usr/sbin/patchmanager ]; then
 /usr/sbin/patchmanager -u sailfishos-voicecall-ui-location-attached || true
 fi
+
 # << pre
 
 %preun
@@ -78,6 +79,7 @@ fi
 %{_datadir}/voicecall-ui-jolla/common
 %{_datadir}/jolla-settings/entries
 %{_datadir}/jolla-settings/pages
-%attr(0644, nemo, nemo) /home/nemo/.local/share/JollaMobile/voicecall-ui/QML/OfflineStorage/Databases
+%attr(0755, nemo, nemo) /home/nemo/.local/share/JollaMobile
+%attr(0644, nemo, nemo) /home/nemo/.local/share/JollaMobile/voicecall-ui/QML/OfflineStorage/Databases/
 # >> files
 # << files
