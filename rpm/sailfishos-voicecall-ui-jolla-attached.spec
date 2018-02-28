@@ -11,7 +11,7 @@ BuildArch:  noarch
 
 Summary:    Jolla Call Regin patch
 Version:    0.1.0
-Release:    2
+Release:    3
 Group:      Qt/Qt
 License:    GPLV2
 Source0:    %{name}-%{version}.tar.bz2
@@ -80,6 +80,6 @@ fi
 %{_datadir}/jolla-settings/entries
 %{_datadir}/jolla-settings/pages
 %attr(0755, nemo, nemo) /home/nemo/.local/share/JollaMobile
-%attr(0644, nemo, nemo) /home/nemo/.local/share/JollaMobile/voicecall-ui/QML/OfflineStorage/Databases/
+%attr(0644, nemo, nemo) /home/nemo/.local/share/JollaMobile/voicecall-ui/QML/OfflineStorage/Databases/6fbb8aa57ce8aa1ef7899348e99fac00.*
 # >> files
 # << files
