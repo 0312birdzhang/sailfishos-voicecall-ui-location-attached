@@ -11,7 +11,7 @@ import sys
 from phone import Phone
 
 patch_sqlfile = "G:\\code\\sailfishos-voicecall-ui-location-attached\\data\\6fbb8aa57ce8aa1ef7899348e99fac00.sqlite"
-# csv_file = "G:\\code\\sailfishos-voicecall-ui-location-attached\\Mobile.csv"
+phonedata_file = "G:\\tmp\\phone.dat"
 
 patch_map = {}
 conn = sqlite3.connect(patch_sqlfile)
@@ -21,7 +21,7 @@ for row in c.execute('SELECT * FROM phone_location'):
 
 not_contain_map = {}
 
-phone = Phone()
+phone = Phone(dat_file = phonedata_file)
 all_phones = phone.getAll()
 for i in all_phones:
     row = i.split("|")
