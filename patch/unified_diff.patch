@@ -8,7 +8,7 @@
  
  ListItem {
      id: root
-@@ -79,6 +80,7 @@ ListItem {
+@@ -79,13 +80,23 @@ ListItem {
                  width: Math.min(implicitWidth, parent.width)
              }
              Label {
@@ -16,29 +16,29 @@
                  text: people.populated && person ? person.secondaryName : ""
                  color: highlighted ? Theme.secondaryHighlightColor : secondaryColor
                  truncationMode: TruncationMode.Fade
-@@ -86,6 +88,16 @@ ListItem {
+                 width: Math.min(implicitWidth, parent.width - firstNameText.width)
                  visible: width > 0
              }
-         }
+-        }
 +    Label {
 +        id:location
 +        text: Location.getLocation(CallLog.formatNumber(remoteUid).toString())
 +        color: highlighted ? Theme.secondaryHighlightColor : secondaryColor
-+	font.pixelSize: Theme.fontSizeSmall*2/3
++       font.pixelSize: Theme.fontSizeSmall*2/3
 +        anchors.verticalCenter: parent.verticalCenter
-+	width: Math.min(implicitWidth, parent.width - firstNameText.width -secondNameText.width)
++       width: Math.min(implicitWidth, parent.width - firstNameText.width -secondNameText.width)
 +        visible: width > 0
 +    }
 + }
          Label {
              id: timeStampLabel
              // JS comma operator used to ensure relative timestamp is updated whenever Qt.application.active changes
-@@ -107,6 +119,20 @@ ListItem {
+@@ -107,6 +118,20 @@ ListItem {
          color: highlighted ? Theme.secondaryHighlightColor : secondaryColor
      }
  
 +    Label {//custom
-+	id: phoneNumber
++       id: phoneNumber
 +        anchors {
 +            top: description.bottom
 +            left: description.left
@@ -47,7 +47,7 @@
 +        text: people.populated || remoteUid !== undefined
 +                          ? (!person || (person.primaryName.length === 0 && person.secondaryName.length === 0)
 +                                 ? "" 
-+				 : CallLog.formatNumber(remoteUid))
++                                : CallLog.formatNumber(remoteUid))
 +                          : ""
 +        color: highlighted ? Theme.secondaryHighlightColor : secondaryColor
 +    }
