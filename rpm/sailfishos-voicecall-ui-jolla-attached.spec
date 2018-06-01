@@ -10,8 +10,8 @@ BuildArch:  noarch
 # << macros
 
 Summary:    Jolla Call Regin patch
-Version:    0.1.0
-Release:    3
+Version:    0.1.1
+Release:    1
 Group:      Qt/Qt
 License:    GPLV2
 Source0:    %{name}-%{version}.tar.bz2

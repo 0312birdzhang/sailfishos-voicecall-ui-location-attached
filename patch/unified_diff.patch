@@ -1,5 +1,5 @@
---- /usr/share/voicecall-ui-jolla/pages/calllog/CallLogItem.qml	2015-03-08 14:43:18.926404289 +0800
-+++ /usr/share/voicecall-ui-jolla/pages/calllog/CallLogItem.qml	2015-03-08 15:16:54.517186902 +0800
+--- /usr/share/voicecall-ui-jolla/pages/calllog/CallLogItem.qml 
++++ /usr/share/voicecall-ui-jolla/pages/calllog/CallLogItem.qml
 @@ -4,6 +4,7 @@ import org.nemomobile.commhistory 1.0
  import org.nemomobile.contacts 1.0
  import Sailfish.Contacts 1.0
@@ -8,40 +8,32 @@
  
  ListItem {
      id: root
-@@ -68,20 +69,30 @@ ListItem {
-                           ? (!person || (person.primaryName.length === 0 && person.secondaryName.length === 0)
-                                  ? CallLog.formatNumber(remoteUid)
-                                  : person.primaryName)
--                          : ""
-+                          : "" 
- 
-                 color: highlighted ? Theme.highlightColor : primaryColor
-                 truncationMode: TruncationMode.Fade
+@@ -79,6 +80,7 @@ ListItem {
                  width: Math.min(implicitWidth, parent.width)
              }
              Label {
-+		id:secondNameText
++                id:secondNameText
                  text: people.populated && person ? person.secondaryName : ""
                  color: highlighted ? Theme.secondaryHighlightColor : secondaryColor
                  truncationMode: TruncationMode.Fade
-                 width: Math.min(implicitWidth, parent.width - firstNameText.width)
+@@ -86,6 +88,16 @@ ListItem {
                  visible: width > 0
              }
--        }
-+            Label {
-+                id:location
-+                text: Location.getLocation(CallLog.formatNumber(remoteUid).toString())
-+                color: highlighted ? Theme.secondaryHighlightColor : secondaryColor
-+		font.pixelSize: Theme.fontSizeSmall*2/3
-+                anchors.verticalCenter: parent.verticalCenter
-+		width: Math.min(implicitWidth, parent.width - firstNameText.width -secondNameText.width)
-+                visible: width > 0
-+            }
-+	 }
+         }
++    Label {
++        id:location
++        text: Location.getLocation(CallLog.formatNumber(remoteUid).toString())
++        color: highlighted ? Theme.secondaryHighlightColor : secondaryColor
++	font.pixelSize: Theme.fontSizeSmall*2/3
++        anchors.verticalCenter: parent.verticalCenter
++	width: Math.min(implicitWidth, parent.width - firstNameText.width -secondNameText.width)
++        visible: width > 0
++    }
++ }
          Label {
              id: timeStampLabel
              // JS comma operator used to ensure relative timestamp is updated whenever Qt.application.active changes
-@@ -103,6 +114,21 @@ ListItem {
+@@ -107,6 +119,20 @@ ListItem {
          color: highlighted ? Theme.secondaryHighlightColor : secondaryColor
      }
  
@@ -59,59 +51,31 @@
 +                          : ""
 +        color: highlighted ? Theme.secondaryHighlightColor : secondaryColor
 +    }
-+
      Image {
          id: icon
          anchors.top: description.top
---- /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml	2015-03-08 13:46:19.998158085 +0800
-+++ /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml	2015-03-08 15:18:50.961441428 +0800
-@@ -1,7 +1,7 @@
+--- /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml
++++ /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml
+@@ -1,6 +1,7 @@
  import QtQuick 2.0
  import Sailfish.Silica 1.0
  import "../../common/CallLog.js" as CallLog
--
 +import "../../common/phonelocation.js" as Location
+ 
  SilicaFlickable {
      id: incomingCallView
- 
-@@ -54,7 +54,6 @@
-         }
-     }
- 
--
-     anchors.fill: parent
-     contentHeight: height
-     flickableDirection: Flickable.VerticalFlick
-@@ -208,11 +207,19 @@
+@@ -203,6 +204,14 @@ SilicaFlickable {
                  anchors.horizontalCenter: parent.horizontalCenter
                  source: "image://theme/icon-l-redirect"
              }
-+	Label{
-+		id:location
-+		text:Location.getLocation(CallLog.formatNumber(phoneNumber).toString())
-+		font { family: Theme.fontFamilyHeading; pixelSize: Theme.fontSizeLarge }
-+		maximumLineCount: 2
++            Label{
++                id:location
++                text:Location.getLocation(CallLog.formatNumber(phoneNumber).toString())
++                font { family: Theme.fontFamilyHeading; pixelSize: Theme.fontSizeLarge }
++                maximumLineCount: 2
 +                wrapMode: Text.Wrap
-+		anchors.horizontalCenter: parent.horizontalCenter
-+	}
++                anchors.horizontalCenter: parent.horizontalCenter
++            }
              Label {
                  width: parent.width
                  visible: text.length > 0
-                 horizontalAlignment: Text.AlignHCenter
--                text: firstText.length > 0 || secondText.length > 0 ? firstText : CallLog.formatNumber(phoneNumber)
-+                text: (firstText.length > 0 || secondText.length > 0 ? firstText : CallLog.formatNumber(phoneNumber))
-                 font { family: Theme.fontFamilyHeading; pixelSize: Theme.fontSizeHuge }
-                 elide: Text.ElideRight
-                 maximumLineCount: 2
---- /usr/share/voicecall-ui-jolla/pages/CallLogPage.qml	2015-09-07 02:40:49.139654437 +0300
-+++ /usr/share/voicecall-ui-jolla/pages/CallLogPage.qml	2015-09-22 00:13:59.236997067 +0300
-@@ -231,7 +231,7 @@
-                             width: Math.min(implicitWidth, wrapper.width - Theme.horizontalPageMargin*2 - timeIcon.width - durationLabel.width - 2*parent.spacing)
-                             anchors.verticalCenter: parent.verticalCenter
-                             truncationMode: TruncationMode.Fade
--                            text: model.remoteUid
-+                	     text: Format.formatDate(model.startTime)
-                         }
-                         Image {
-                             id: timeIcon
-

@@ -19,7 +19,7 @@ Page {
     ConfigurationGroup {
         id: config
         path: "/apps/phone.birdzhang"
-        property int version: 20180223
+        property int version: 20180423
     }
 
     Notification{
@@ -145,9 +145,10 @@ Page {
                 enabled: !running
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
+					enabled = false
                     running = true;
+					notification.show("正在更新，请勿关闭页面");
                     if(py.checkVersion()){
-                        notification.show("正在更新，请勿关闭页面");
                         py.updateDB(tmpversion);
                     }else{
                         running = false;
