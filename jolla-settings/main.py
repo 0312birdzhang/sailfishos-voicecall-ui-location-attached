@@ -39,18 +39,15 @@ def get(url):
         return int(version)
     except Exception as e:
         #my daughter's birthday
-        print(e)
         return 20180131
 
 def download(downname,downurl):
-    print(downname,downurl)
+    # print(downname,downurl)
     try:
         urllib.request.urlretrieve(downurl,downname)
     except urllib.error.HTTPError as e:
-        print(e)
         return False
     except urllib.error.ContentTooShortError as e:
-        print(e)
         return False
     return True
 
@@ -62,13 +59,12 @@ def getDbname():
     return "%s%s.sqlite" % (dbPath, dbname)
 
 def updateSql(newdb, olddb):
-    print(olddb)
+    # print(olddb)
     conn = sqlite3.connect(olddb)
     c = conn.cursor()
     with codecs.open(newdb, 'r+', encoding='utf-8') as f:
         for i in f.readlines():
             row = i.split(",")
-            print(row[0])
             c.execute("INSERT OR REPLACE INTO phone_location values (?,?);", (row[0], row[1]))
     conn.commit()
     conn.close()
@@ -76,7 +72,6 @@ def updateSql(newdb, olddb):
 
 
 def getaddress(num):
-    # print("处理后的号码",num)
     try:
         conn = sqlite3.connect(getDbname())
         cur = conn.cursor()
@@ -121,9 +116,7 @@ def getLocation(num):
             result = getaddress(num)
     if len(result) == 0:
         result = "未知"
-    print(result)
     return result
 
 if __name__ == '__main__':
-    #getLocation("05538970123")
-    getLocation("10010")
+    getLocation("18565089262")

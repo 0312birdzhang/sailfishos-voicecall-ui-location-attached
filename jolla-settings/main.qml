@@ -19,7 +19,7 @@ Page {
     ConfigurationGroup {
         id: config
         path: "/apps/phone.birdzhang"
-        property int version: 20180423
+        property int version: 20181128
     }
 
     Notification{
@@ -31,7 +31,7 @@ Page {
             icon = icn ? icn : ""
             publish()
         }
-        expireTimeout: 3000
+        expireTimeout: 2000
     }
 
     Python{
@@ -48,26 +48,30 @@ Page {
         }
 
         function checkVersion(){
-            var newversion = py.call_sync("main.getVersion",[],function(ret){
+            notification.show("正在更新，请勿关闭页面");
+            running = true;
+            py.call("main.getVersion",[],function(ret){
+                var newversion = ret;
+                console.log("checked version", newversion);
+                console.log("stored version",config.version);
+                if ( newversion == 20180131){
+                    notification.show("检查版本出错");
+                    running = false;
+                }
+                if ( newversion > config.version){
+                    updateDB(newversion);
+                }else{
+                    running = false;
+                }
             });
 
-            console.log("checked version", newversion);
-            console.log("stored version",config.version);
-            if ( newversion == 20180131){
-                notification.show("检查版本出错");
-                running = false;
-                return false;
-            }
-            if ( newversion > config.version){
-                tmpversion = newversion;
-                return true;
-            }else{
-                return false;
-            }
+            
         }
 
         function updateDB(version){
-            py.call("main.updateDB",[version],function(ret){});
+            py.call("main.updateDB",[version],function(ret){
+                running = false;
+            });
         }
 
         function queryNum(num){
@@ -145,15 +149,7 @@ Page {
                 enabled: !running
                 anchors.horizontalCenter: parent.horizontalCenter
                 onClicked: {
-					enabled = false
-                    running = true;
-					notification.show("正在更新，请勿关闭页面");
-                    if(py.checkVersion()){
-                        py.updateDB(tmpversion);
-                    }else{
-                        running = false;
-                        notification.show("已是最新版本，无需更新")
-                    }
+                    py.checkVersion();
                 }
             }
         }
@@ -171,6 +167,10 @@ Page {
                     id: column
                     anchors { left: parent.left; right: parent.right }
                     spacing: Theme.paddingLarge
+                    Item {
+                        height: Theme.itemSizeMedium
+                        width: parent.width
+                    }
                     TextField {
                         id: phonenum
                         anchors { left: parent.left; right: parent.right }
