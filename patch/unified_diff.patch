@@ -24,9 +24,9 @@
 +        id:location
 +        text: Location.getLocation(CallLog.formatNumber(remoteUid).toString())
 +        color: highlighted ? Theme.secondaryHighlightColor : secondaryColor
-+       font.pixelSize: Theme.fontSizeSmall*2/3
++        font.pixelSize: Theme.fontSizeSmall*2/3
 +        anchors.verticalCenter: parent.verticalCenter
-+       width: Math.min(implicitWidth, parent.width - firstNameText.width -secondNameText.width)
++        width: Math.min(implicitWidth, parent.width - firstNameText.width -secondNameText.width)
 +        visible: width > 0
 +    }
 + }

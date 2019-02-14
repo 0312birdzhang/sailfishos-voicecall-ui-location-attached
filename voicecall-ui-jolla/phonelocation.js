@@ -1,6 +1,6 @@
 .pragma library
 .import QtQuick.LocalStorage 2.0 as SQL
-Qt.include("countires.js")
+Qt.include("countries.js")
 
 var region;
 
@@ -23,7 +23,7 @@ function getLocation(num) {
     if( (num.indexOf("\+") > -1 && num.indexOf("\+86") < 0 ) ||
         num.indexOf("\-") > -1
     ){
-        codenum = num.split(" ")[0] // ???
+        var codenum = num.split(" ")[0] // ???
         result = getCountry(codenum)
         return result;
     }
