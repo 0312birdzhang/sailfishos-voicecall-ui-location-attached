@@ -47,49 +47,10 @@ Page {
             })
         }
 
-        function checkVersion(){
-            notification.show("正在更新，请勿关闭页面");
-            running = true;
-            py.call("main.getVersion",[],function(ret){
-                var newversion = ret;
-                console.log("checked version", newversion);
-                console.log("stored version",config.version);
-                if ( newversion == 20180131){
-                    notification.show("检查版本出错");
-                    running = false;
-                }
-                if ( newversion > config.version){
-                    updateDB(newversion);
-                }else{
-                    running = false;
-                }
-            });
-
-            
-        }
-
-        function updateDB(version){
-            py.call("main.updateDB",[version],function(ret){
-                running = false;
-            });
-        }
-
         function queryNum(num){
             py.call("main.getLocation",[num],function(ret){
                 signalCenter.querySucceed(ret);
             });
-        }
-
-        onUpdated:{
-            if(flag){
-                config.version = tmpversion;
-                notification.show("更新成功")
-                running = false;
-            }else{
-                notification.show("发生了错误");
-                running = false;
-            }
-
         }
 
         onError: {
@@ -132,24 +93,10 @@ Page {
                 linkColor:Theme.primaryColor
                 horizontalAlignment: Text.AlignHCenter
                 text: "本程序由0312birdzhang制作，"+
-                      "部分数据来自<a href=\"https://github.com/xluohome/phonedata\">https://github.com/xluohome/phonedata</a>,部分来自网络。<br/>"
-                      + "不保证数据的完全准确性,请知悉。<br/>"
-                      + "当前数据库版本：" + config.version;
+                      "部分数据来自<a href=\"https://github.com/xluohome/phonedata\">https://github.com/xluohome/phonedata</a>，部分来自网络，"
+                      + "不保证数据的完全准确性,请知悉。<br/>";
                 onLinkActivated: {
                     Qt.openUrlExternally(link);
-                }
-            }
-
-            SectionHeader {
-                text: "更新数据"
-            }
-
-            Button {
-                text: running? "更新中..." :"更新"
-                enabled: !running
-                anchors.horizontalCenter: parent.horizontalCenter
-                onClicked: {
-                    py.checkVersion();
                 }
             }
         }
