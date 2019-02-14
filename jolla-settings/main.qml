@@ -124,7 +124,7 @@ Page {
                         label: "输入号码"
                         focus: true;
                         inputMethodHints:Qt.ImhDigitsOnly
-                        placeholderText: label
+                        placeholderText: "国外号码暂不支持，需要输入全部号码"
                         EnterKey.enabled: text && text.length > 2
                         EnterKey.iconSource: "image://theme/icon-m-search"
                         EnterKey.onClicked: {

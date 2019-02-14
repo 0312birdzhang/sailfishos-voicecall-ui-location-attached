@@ -120,7 +120,7 @@ var countries = [
     { country: "摩尔多瓦", code:"373"},
     { country: "摩纳哥", code:"377"},
     { country: "蒙古", code:"976"},
-    { country: "黑山代号："382"},
+    { country: "黑山代号", code: "382"},
     { country: "摩洛哥", code:"212"},
     { country: "莫桑比克", code:"258"},
     { country: "缅甸(缅甸)", code:"95"},
@@ -250,5 +250,5 @@ var countries = [
     { country: "荷属安的列斯群岛", code:"599"},
     { country: "斯瓦尔巴特", code:"47"},
     { country: "提升", code:"247"},
-    { country: "特里斯坦达库尼亚", code:"290",
+    { country: "特里斯坦达库尼亚", code:"290" }
     ]
