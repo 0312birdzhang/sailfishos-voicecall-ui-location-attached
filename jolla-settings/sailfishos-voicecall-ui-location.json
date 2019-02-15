@@ -6,7 +6,7 @@
             "type": "page",
             "title": "来电归属地",
             "translation_id": "sailfishos-voicecall-ui-location",
-            "icon": "/usr/share/jolla-settings/pages/sailfishos-voicecall-ui-location/icon-m-patchmanager-phone.png",
+            "icon": "image://theme/icon-m-phone.png",
             "order": 9000,
             "params": {
                 "source": "/usr/share/jolla-settings/pages/sailfishos-voicecall-ui-location/main.qml"
