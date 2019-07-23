@@ -14,7 +14,7 @@
      }
 +    Label {
 +        id:location
-+        text: Location.getLocation(CallLog.formatNumber(remoteUid).toString())
++        text: Location.getLocation(CallHistory.formatNumber(remoteUid).toString())
 +        color: highlighted ? palette.secondaryHighlightColor : palette.secondaryColor
 +        font.pixelSize: Theme.fontSizeSmall*2/3
 +        anchors.verticalCenter: parent.verticalCenter
@@ -27,7 +27,7 @@
 @@ -1,6 +1,7 @@
  import QtQuick 2.0
  import Sailfish.Silica 1.0
- import "../../common/CallLog.js" as CallLog
+ import "../../common/CallHistory.js" as CallHistory
 +import "../../common/phonelocation.js" as Location
  
  SilicaFlickable {
@@ -38,7 +38,7 @@
              }
 +            Label{
 +                id:location
-+                text:Location.getLocation(CallLog.formatNumber(phoneNumber).toString())
++                text:Location.getLocation(CallHistory.formatNumber(phoneNumber).toString())
 +                font { family: Theme.fontFamilyHeading; pixelSize: Theme.fontSizeLarge }
 +                maximumLineCount: 2
 +                wrapMode: Text.Wrap

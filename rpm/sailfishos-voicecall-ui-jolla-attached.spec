@@ -10,14 +10,13 @@ BuildArch:  noarch
 # << macros
 
 Summary:    Jolla Call Regin patch
-Version:    0.2.2
+Version:    0.2.3
 Release:    1
 Group:      Qt/Qt
 License:    GPLV2
 Source0:    %{name}-%{version}.tar.bz2
 Requires:   patchmanager
 Requires:   voicecall-ui-jolla >= 1.0.16.7
-Requires:   pyotherside-qml-plugin-python3-qt5 >= 1.5
 %description
 Phone location for China
 
@@ -49,7 +48,7 @@ cp voicecall-ui-jolla/*.js %{buildroot}/usr/share/voicecall-ui-jolla/common
 
 mkdir -p %{buildroot}/usr/share/jolla-settings/pages/sailfishos-voicecall-ui-location
 cp -r jolla-settings/*.qml %{buildroot}/usr/share/jolla-settings/pages/sailfishos-voicecall-ui-location/
-cp -r jolla-settings/*.py %{buildroot}/usr/share/jolla-settings/pages/sailfishos-voicecall-ui-location/
+cp -r jolla-settings/*.png %{buildroot}/usr/share/jolla-settings/pages/sailfishos-voicecall-ui-location/
 mkdir -p %{buildroot}/usr/share/jolla-settings/entries
 cp -r jolla-settings/*.json %{buildroot}/usr/share/jolla-settings/entries/
 
