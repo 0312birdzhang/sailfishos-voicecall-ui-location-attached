@@ -46,11 +46,6 @@ cp -r data/* %{buildroot}/home/nemo/.local/share/JollaMobile/voicecall-ui/QML/Of
 mkdir -p %{buildroot}/usr/share/voicecall-ui-jolla/common
 cp voicecall-ui-jolla/*.js %{buildroot}/usr/share/voicecall-ui-jolla/common
 
-mkdir -p %{buildroot}/usr/share/jolla-settings/pages/sailfishos-voicecall-ui-location
-cp -r jolla-settings/*.qml %{buildroot}/usr/share/jolla-settings/pages/sailfishos-voicecall-ui-location/
-cp -r jolla-settings/*.png %{buildroot}/usr/share/jolla-settings/pages/sailfishos-voicecall-ui-location/
-mkdir -p %{buildroot}/usr/share/jolla-settings/entries
-cp -r jolla-settings/*.json %{buildroot}/usr/share/jolla-settings/entries/
 
 # << install pre
 
@@ -76,8 +71,6 @@ fi
 %defattr(-,root,root,-)
 %{_datadir}/patchmanager/patches/sailfishos-voicecall-ui-location-attached
 %{_datadir}/voicecall-ui-jolla/common
-%{_datadir}/jolla-settings/entries
-%{_datadir}/jolla-settings/pages
 %attr(0755, nemo, nemo) /home/nemo/.local/share/JollaMobile
 %attr(0644, nemo, nemo) /home/nemo/.local/share/JollaMobile/voicecall-ui/QML/OfflineStorage/Databases/6fbb8aa57ce8aa1ef7899348e99fac00.*
 # >> files
