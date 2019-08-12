@@ -1,25 +1,23 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-'''
-Created on 2017年11月20日
 
-@author: debo.zhang
+'''
+
+@author: admin
 '''
 
 import os
 import struct
 import sys
-
-__author__ = 'lovedboy'
-__data_url__ = "https://github.com/xluohome/phonedata/raw/master/phone.dat"
+import pprint
 
 if sys.version_info > (3, 0):
     def get_record_content(buf, start_offset):
-        end_offset = start_offset + buf[start_offset:-1].find(b'\x00')
+        end_offset = buf.find(b'\x00', start_offset)
         return buf[start_offset:end_offset].decode()
 else:
     def get_record_content(buf, start_offset):
-        end_offset = start_offset + buf[start_offset:-1].find('\x00')
+        end_offset = buf.find('\x00', start_offset)
         return buf[start_offset:end_offset]
 
 
@@ -39,7 +37,7 @@ class Phone(object):
         self.version, self.first_phone_record_offset = struct.unpack(
             self.head_fmt, self.buf[:self.head_fmt_length])
         self.phone_record_count = (len(
-            self.buf) - self.first_phone_record_offset) / self.phone_fmt_length
+            self.buf) - self.first_phone_record_offset) // self.phone_fmt_length
 
     def get_phone_dat_msg(self):
         print("版本号:{}".format(self.version))
@@ -73,10 +71,6 @@ class Phone(object):
             "phone_type": Phone.get_phone_no_type(phone_type)
         }
 
-    def _lookup_tel(self, tel_num):
-        tel_num = str(tel_num)
-        pass
-
     def _lookup_phone(self, phone_num):
 
         phone_num = str(phone_num)
@@ -85,10 +79,12 @@ class Phone(object):
 
         left = 0
         right = self.phone_record_count
+        buflen = len(self.buf)
         while left <= right:
-            middle = int((left + right) / 2)
-            current_offset = int(self.first_phone_record_offset + middle * self.phone_fmt_length)
-            if current_offset >= len(self.buf):
+            middle = (left + right) // 2
+            current_offset = (self.first_phone_record_offset +
+                middle * self.phone_fmt_length)
+            if current_offset >= buflen:
                 return
 
             buffer = self.buf[current_offset: current_offset + self.phone_fmt_length]
@@ -107,7 +103,30 @@ class Phone(object):
     def find(self, phone_num):
         return self._lookup_phone(phone_num)
 
+    @staticmethod
+    def human_phone_info(phone_info):
+        if not phone_info:
+            return ''
 
+        return "{}|{}|{}|{}|{}|{}".format(phone_info['phone'],
+                                          phone_info['province'],
+                                          phone_info['city'],
+                                          phone_info['zip_code'],
+                                          phone_info['area_code'],
+                                          phone_info['phone_type'])
+
+    def test(self):
+        self.get_phone_dat_msg()
+        all_phones = []
+        for i in range(1000000, 1999999):
+#             print(self.human_phone_info(self.find(i)))
+            if not self.find(i):
+                continue
+            phone, province, city, zip_code, area_code, phone_type = self.human_phone_info(self.find(i)).split('|')
+            line = "%s|%s%s[%s]" % (phone, province, city,phone_type)
+            all_phones.append(line)
+        return all_phones
+    
     def getAll(self):
         left = self.first_phone_record_offset
         right = self.phone_record_count
@@ -126,25 +145,8 @@ class Phone(object):
             left += 1
         return all_phones
 
-    @staticmethod
-    def human_phone_info(phone_info):
-        if not phone_info:
-            return ''
-
-        return "{}|{}|{}|{}|{}|{}".format(phone_info['phone'],
-                                          phone_info['province'],
-                                          phone_info['city'],
-                                          phone_info['zip_code'],
-                                          phone_info['area_code'],
-                                          phone_info['phone_type'])
-
-    def test(self):
-        self.get_phone_dat_msg()
-        for i in range(1529900, 1529999):
-            print(self.human_phone_info(self.find(i)))
-
 
 if __name__ == "__main__":
-    phone = Phone()
-    phone.getAll()
-#     print(phone.find(1856508))
+    phone = Phone(dat_file = "F:\\Download\\phone.dat")
+    print(phone.human_phone_info(phone.find(1475841)))
+    
