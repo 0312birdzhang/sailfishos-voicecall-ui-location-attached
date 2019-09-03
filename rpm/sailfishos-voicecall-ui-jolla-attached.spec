@@ -11,7 +11,7 @@ BuildArch:  noarch
 
 Summary:    Jolla Call Regin patch
 Version:    0.2.5
-Release:    2
+Release:    3
 Group:      Qt/Qt
 License:    GPLV2
 Source0:    %{name}-%{version}.tar.bz2
