@@ -1,6 +1,5 @@
 .pragma library
 .import QtQuick.LocalStorage 2.0 as SQL
-Qt.include("countries.js")
 
 var region;
 
@@ -8,25 +7,9 @@ function getDatabase() {
     return SQL.LocalStorage.openDatabaseSync("phone_location", "1.0", "phonelocation", 1024*1024*7);
 }
 
-function getCountry(codenum){
-    codenum = codenum.replace(/\+/g,"");
-    for (var i=0; i<countries.length; i++) {
-        if(countries[i].code == codenum ){
-            return countries[i].country;
-        }
-    }
-    return "国外号码";
-}
 
 function getLocation(num) {
     var result;
-    if( (num.indexOf("\+") > -1 && num.indexOf("\+86") < 0 ) ||
-        num.indexOf("\-") > -1
-    ){
-        var codenum = num.split(" ")[0] // ???
-        result = getCountry(codenum)
-        return result;
-    }
     num = num.replace(/\+86/g,"");
     num = num.replace(/\+/g,"");
     num = num.replace(/\-/g,"");

@@ -32,7 +32,7 @@
  
  SilicaFlickable {
      id: incomingCallView
-@@ -203,6 +204,14 @@ SilicaFlickable {
+@@ -203,6 +204,15 @@ SilicaFlickable {
                  anchors.horizontalCenter: parent.horizontalCenter
                  source: "image://theme/icon-l-redirect"
              }
@@ -43,6 +43,7 @@
 +                maximumLineCount: 2
 +                wrapMode: Text.Wrap
 +                anchors.horizontalCenter: parent.horizontalCenter
++                visible: !showCountry
 +            }
              Label {
                  width: parent.width

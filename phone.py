@@ -147,6 +147,6 @@ class Phone(object):
 
 
 if __name__ == "__main__":
-    phone = Phone(dat_file = "F:\\Download\\phone.dat")
+    phone = Phone(dat_file = "C:\\Users\\admin\\git\\sailfishos-voicecall-ui-location-attached\\phone.dat")
     print(phone.human_phone_info(phone.find(1475841)))
     
