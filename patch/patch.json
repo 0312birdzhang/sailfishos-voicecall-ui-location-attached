@@ -1,9 +1,7 @@
 {
-    "display_name": "来电归属地",
+    "name": "来电归属地",
     "description": "Phone location for China,support phone number and fixed telephone number,you can donate me to make this patch better. 来电归属地，支持2019年11月最新号码段，支持座机与移动电话等。部分数据来自 https://github.com/xluohome/phonedata ，部分来自网络，不保证数据的完全准确性,请知悉。",
     "category": "phone",
-    "name": "call-location-path",
-    "sources": "https://github.com/0312birdzhang/sailfishos-voicecall-ui-location-attached",
     "infos": {
         "maintainer": "birdzhang"
     }
