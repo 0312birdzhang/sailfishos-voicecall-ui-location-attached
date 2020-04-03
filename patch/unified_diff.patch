@@ -8,10 +8,12 @@
  
  Row {
      property alias secondaryLabel: secondaryLabel
-@@ -25,4 +26,13 @@ Row {
+@@ -23,6 +24,15 @@
+         color: highlighted ? palette.secondaryHighlightColor : palette.secondaryColor
+         truncationMode: TruncationMode.Fade
          width: Math.min(implicitWidth, parent.width - x)
-         visible: width > 0
-     }
++        visible: width > 0
++    }
 +    Label {
 +        id:location
 +        text: Location.getLocation(CallHistory.formatNumber(remoteUid).toString())
@@ -19,32 +21,32 @@
 +        font.pixelSize: Theme.fontSizeSmall*2/3
 +        anchors.verticalCenter: parent.verticalCenter
 +        width: Math.min(implicitWidth, parent.width - firstNameText.width - secondaryLabel.width)
-+        visible: width > 0
-+    }
+         visible: width > 0
+     }
  }
---- /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml
-+++ /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml
-@@ -1,6 +1,7 @@
- import QtQuick 2.0
+--- /usr/share/voicecall-ui-jolla/calling/IncomingCallViewBase.qml
++++ /usr/share/voicecall-ui-jolla/calling/IncomingCallViewBase.qml
+@@ -2,6 +2,7 @@
  import Sailfish.Silica 1.0
- import "../../common/CallHistory.js" as CallHistory
-+import "../../common/phonelocation.js" as Location
+ import Sailfish.Telephony 1.0
+ import "../common/CallHistory.js" as CallHistory
++import "../common/phonelocation.js" as Location
  
  SilicaFlickable {
      id: incomingCallView
-@@ -203,6 +204,15 @@ SilicaFlickable {
+@@ -209,6 +210,15 @@
+                 Behavior on opacity { FadeAnimation {} }
                  anchors.horizontalCenter: parent.horizontalCenter
                  source: "image://theme/icon-l-redirect"
-             }
++            }
 +            Label{
 +                id:location
-+                text:Location.getLocation(CallHistory.formatNumber(phoneNumber).toString())
++                text: Location.getLocation(CallHistory.formatNumber(phoneNumber).toString())
 +                font { family: Theme.fontFamilyHeading; pixelSize: Theme.fontSizeLarge }
 +                maximumLineCount: 2
 +                wrapMode: Text.Wrap
 +                anchors.horizontalCenter: parent.horizontalCenter
 +                visible: !showCountry
-+            }
+             }
              Label {
                  width: parent.width
-                 visible: text.length > 0

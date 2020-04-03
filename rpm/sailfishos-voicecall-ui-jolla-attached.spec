@@ -10,13 +10,13 @@ BuildArch:  noarch
 # << macros
 
 Summary:    Jolla Call Regin patch
-Version:    0.2.7
+Version:    0.2.8
 Release:    1
 Group:      Qt/Qt
 License:    GPLV2
 Source0:    %{name}-%{version}.tar.bz2
 Requires:   patchmanager
-Requires:   voicecall-ui-jolla >= 1.0.16.7
+Requires:   voicecall-ui-jolla >= 1.12.11
 %description
 Phone location for China
 
