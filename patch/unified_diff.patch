@@ -22,29 +22,22 @@
 +        visible: width > 0
 +    }
  }
---- /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml
-+++ /usr/share/voicecall-ui-jolla/pages/calling/IncomingCallViewBase.qml
-@@ -1,6 +1,7 @@
- import QtQuick 2.0
- import Sailfish.Silica 1.0
- import "../../common/CallHistory.js" as CallHistory
-+import "../../common/phonelocation.js" as Location
+--- /usr/share/voicecall-ui-jolla/calling/IncomingCallViewBase.qml
++++ /usr/share/voicecall-ui-jolla/calling/IncomingCallViewBase.qml
+@@ -11,6 +11,7 @@ import Sailfish.Telephony 1.0
+ import com.jolla.voicecall 1.0
+ import org.nemomobile.messages.internal 1.0 as Messages
+ import "../common/CallHistory.js" as CallHistory
++import "../common/phonelocation.js" as Location
+ import "../common"
  
- SilicaFlickable {
-     id: incomingCallView
-@@ -203,6 +204,15 @@ SilicaFlickable {
-                 anchors.horizontalCenter: parent.horizontalCenter
-                 source: "image://theme/icon-l-redirect"
-             }
-+            Label{
-+                id:location
-+                text:Location.getLocation(CallHistory.formatNumber(phoneNumber).toString())
-+                font { family: Theme.fontFamilyHeading; pixelSize: Theme.fontSizeLarge }
-+                maximumLineCount: 2
-+                wrapMode: Text.Wrap
-+                anchors.horizontalCenter: parent.horizontalCenter
-+                visible: !showCountry
-+            }
-             Label {
-                 width: parent.width
-                 visible: text.length > 0
+ IncomingCallGesture {
+@@ -204,6 +205,8 @@ IncomingCallGesture {
+                     // Country indication
+                     if (showCountry) {
+                         details.push(phoneNumberParser.localizedCountryName)
++                    }else{
++                        Location.getLocation(CallHistory.formatNumber(phoneNumber).toString());
+                     }
+ 
+                     // Determine wrapping
