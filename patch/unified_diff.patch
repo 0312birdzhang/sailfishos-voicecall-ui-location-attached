@@ -8,10 +8,12 @@
  
  Row {
      property alias secondaryLabel: secondaryLabel
-@@ -25,4 +26,13 @@ Row {
+@@ -23,6 +24,15 @@
+         color: highlighted ? palette.secondaryHighlightColor : palette.secondaryColor
+         truncationMode: TruncationMode.Fade
          width: Math.min(implicitWidth, parent.width - x)
-         visible: width > 0
-     }
++        visible: width > 0
++    }
 +    Label {
 +        id:location
 +        text: Location.getLocation(CallHistory.formatNumber(remoteUid).toString())
@@ -19,8 +21,8 @@
 +        font.pixelSize: Theme.fontSizeSmall*2/3
 +        anchors.verticalCenter: parent.verticalCenter
 +        width: Math.min(implicitWidth, parent.width - firstNameText.width - secondaryLabel.width)
-+        visible: width > 0
-+    }
+         visible: width > 0
+     }
  }
 --- /usr/share/voicecall-ui-jolla/calling/IncomingCallViewBase.qml
 +++ /usr/share/voicecall-ui-jolla/calling/IncomingCallViewBase.qml
